@@ -1,16 +1,18 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import DisplayStudents from "./DisplayStudents";
+import { Context } from "./Context";
 
 function App() {
-  const [dataStudents, setDataStudents] = useState([]);
+  const { dataStudents } = useContext(Context);
+  //const [dataStudents, setDataStudents] = useState([]);
   const [searchInput, setSearchInput] = useState({ name: "", tag: "" });
 
-  useEffect(() => {
-    fetch("https://api.hatchways.io/assessment/students")
-      .then((res) => res.json())
-      .then((data) => setDataStudents(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://api.hatchways.io/assessment/students")
+  //     .then((res) => res.json())
+  //     .then((data) => setDataStudents(data));
+  // }, []);
 
   const displayStudent = dataStudents.students?.map((student) => {
     const { company, skill, id, firstName, lastName, email, pic, grades } =
