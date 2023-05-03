@@ -1,57 +1,88 @@
 import "./App.css";
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import DisplayStudents from "./DisplayStudents";
 import { Context } from "./Context";
+import useHandleChange from "./useHandleChange";
 
 function App() {
   const { dataStudents } = useContext(Context);
-  //const [dataStudents, setDataStudents] = useState([]);
-  const [searchInput, setSearchInput] = useState({ name: "", tag: "" });
+  const [value, handleChange] = useHandleChange();
 
-  // useEffect(() => {
-  //   fetch("https://api.hatchways.io/assessment/students")
-  //     .then((res) => res.json())
-  //     .then((data) => setDataStudents(data));
-  // }, []);
+  const displayStudent = dataStudents?.map((student) => {
+    const {
+      company,
+      skill,
+      id,
+      firstName,
+      lastName,
+      email,
+      pic,
+      grades,
+      tags,
+    } = student;
 
-  const displayStudent = dataStudents.students?.map((student) => {
-    const { company, skill, id, firstName, lastName, email, pic, grades } =
-      student;
-    if (checkSearchName(firstName, lastName)) {
-      return (
-        <DisplayStudents
-          firstName={firstName}
-          lastName={lastName}
-          pic={pic}
-          email={email}
-          skill={skill}
-          company={company}
-          id={id}
-          grades={grades}
-          key={id}
-        />
-      );
+    const studentProperties = (
+      <DisplayStudents
+        firstName={firstName}
+        lastName={lastName}
+        pic={pic}
+        email={email}
+        skill={skill}
+        company={company}
+        id={id}
+        grades={grades}
+        tags={tags}
+        key={id}
+      />
+    );
+    console.log(checkSearchInputs(student));
+    // console.log([`${firstName} ${lastName}`]);
+    // console.log(checkSearchInputs([`${firstName} ${lastName}`]));
+    // console.log(tags);
+    // console.log(checkSearchInputs(tags));
+    console.log(student.firstName.toUpperCase());
+    console.log(value);
+    if (value === "") {
+      return studentProperties;
+    } else if (
+      // checkSearchInputs([`${firstName} ${lastName}`]) ||
+      // checkSearchInputs(tags)
+      checkSearchInputs(student)
+      // &&
+      // checkSearchInputs(tags)
+      // checkSearchInputs([{ firstName }, { lastName }]) ||
+      // checkSearchInputs(tags)
+    ) {
+      return studentProperties;
     }
+    return "";
   });
 
-  function checkSearchName(firstName, lastName = "") {
-    const fullName = `${firstName} ${lastName}`;
-    const nameMatch = fullName
-      .toUpperCase()
-      .includes(searchInput.name.toUpperCase());
-    return nameMatch;
+  function checkSearchInputs(student) {
+    return (
+      (student.firstName.toUpperCase().includes(value.name.toUpperCase()) ||
+        student.lastName.toUpperCase().includes(value.name.toUpperCase())) &&
+      student.tags.some((tag) =>
+        tag.toUpperCase().includes(value.tag.toUpperCase())
+      )
+    );
   }
 
-  function handleChange(event) {
-    setSearchInput((prevData) => {
-      return {
-        ...prevData,
-        [event.target.name]: event.target.value.trim(),
-      };
-    });
-  }
+  // const nameMatch = inputArr
+  //   .toUpperCase()
+  //   .every()
+  //   .includes(value.name.toUpperCase());
+  // const tagMatch = inputArr
+  //   .toUpperCase()
+  //   .every(() => .includes(value.tag.toUpperCase()))
 
-  //console.log(searchInput);
+  // function checkSearchInputs(input) {
+  //   const nameMatch = input.toUpperCase().includes(value.name.toUpperCase());
+  //   const tagMatch = input.toUpperCase().includes(value.tag.toUpperCase());
+  //   return nameMatch || tagMatch;
+  // }
+
+  //console.log(value);
   return (
     <div className="App">
       <div className="topSearch">
@@ -77,13 +108,3 @@ function App() {
 }
 
 export default App;
-
-/*
-  1- call API
-  2- display information from api
-  3- Display average score
-  4- Plus minus button functionality
-  5- Add tag function
-  6- Setup search by name
-  7- Setup search by tag
-*/

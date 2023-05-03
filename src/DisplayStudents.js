@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import useHandleChange from "./useHandleChange";
 
 export default function DisplayStudents({
   company,
@@ -9,10 +10,10 @@ export default function DisplayStudents({
   email,
   pic,
   grades,
+  tags,
 }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [tags, setTags] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [value, handleChange] = useHandleChange();
 
   function getTestResults(testResults) {
     const allResults = testResults?.map((result, id) => {
@@ -34,18 +35,14 @@ export default function DisplayStudents({
     return <h2 key={i + 100}>{Tag}</h2>;
   });
 
-  function handleChange(event) {
-    setInputValue(event.target.value);
-  }
-
   function submitTag(event) {
     if (event.keyCode === 13) {
       event.preventDefault();
-      setTags((prevTags) => [...prevTags, event.target.value]);
-      setInputValue("");
+      tags.push(event.target.value);
+      handleChange(event);
     }
   }
-
+  console.log();
   return (
     <div key={id} className="student-layout">
       <div className="student">
@@ -64,7 +61,8 @@ export default function DisplayStudents({
         <form>
           <input
             className="inputStyle"
-            value={inputValue}
+            value={value.value}
+            name="value"
             type="text"
             placeholder="Add a here"
             onChange={handleChange}

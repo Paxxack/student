@@ -6,19 +6,24 @@ function ContextProvider({ children }) {
   const [dataStudents, setDataStudents] = useState([]);
 
   useEffect(() => {
-    fetch("https://api.hatchways.io/assessment/students")
-      .then((res) => res.json())
-      .then((data) => setDataStudents(data));
+    fetchStudents();
   }, []);
 
+  async function fetchStudents() {
+    const response = await fetch(
+      "https://api.hatchways.io/assessment/students"
+    );
+    const data = await response.json();
+    const newDataArr = data.students?.map((eachStudent) => {
+      return { ...eachStudent, tags: [""] };
+    });
+    setDataStudents(newDataArr);
+  }
+
   return (
-    <ContextProvider
-      value={{
-        dataStudents,
-      }}
-    >
+    <Context.Provider value={{ dataStudents, setDataStudents }}>
       {children}
-    </ContextProvider>
+    </Context.Provider>
   );
 }
 
