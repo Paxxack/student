@@ -35,24 +35,10 @@ function App() {
         key={id}
       />
     );
-    console.log(checkSearchInputs(student));
-    // console.log([`${firstName} ${lastName}`]);
-    // console.log(checkSearchInputs([`${firstName} ${lastName}`]));
-    // console.log(tags);
-    // console.log(checkSearchInputs(tags));
-    console.log(student.firstName.toUpperCase());
-    console.log(value);
+
     if (value === "") {
       return studentProperties;
-    } else if (
-      // checkSearchInputs([`${firstName} ${lastName}`]) ||
-      // checkSearchInputs(tags)
-      checkSearchInputs(student)
-      // &&
-      // checkSearchInputs(tags)
-      // checkSearchInputs([{ firstName }, { lastName }]) ||
-      // checkSearchInputs(tags)
-    ) {
+    } else if (checkSearchInputs(student)) {
       return studentProperties;
     }
     return "";
@@ -68,41 +54,27 @@ function App() {
     );
   }
 
-  // const nameMatch = inputArr
-  //   .toUpperCase()
-  //   .every()
-  //   .includes(value.name.toUpperCase());
-  // const tagMatch = inputArr
-  //   .toUpperCase()
-  //   .every(() => .includes(value.tag.toUpperCase()))
-
-  // function checkSearchInputs(input) {
-  //   const nameMatch = input.toUpperCase().includes(value.name.toUpperCase());
-  //   const tagMatch = input.toUpperCase().includes(value.tag.toUpperCase());
-  //   return nameMatch || tagMatch;
-  // }
-
-  //console.log(value);
   return (
-    <div className="App">
-      <div className="topSearch">
-        <input
-          className="inputStyle"
-          type="text"
-          name="name"
-          placeholder="Search by name"
-          onChange={handleChange}
-        />
-        <input
-          className="inputStyle"
-          type="text"
-          name="tag"
-          placeholder="Search by tag"
-          onChange={handleChange}
-        />
+    <div className="background">
+      <div className="App">
+        <div className="topSearch">
+          <input
+            className="inputStyle"
+            type="text"
+            name="name"
+            placeholder="Search by name"
+            onChange={handleChange}
+          />
+          <input
+            className="inputStyle"
+            type="text"
+            name="tag"
+            placeholder="Search by tag"
+            onChange={handleChange}
+          />
+        </div>
+        <div id="container">{displayStudent}</div>
       </div>
-
-      {displayStudent}
     </div>
   );
 }
