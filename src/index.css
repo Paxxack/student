@@ -12,11 +12,127 @@ code {
     monospace;
 }
 
-li {
-  list-style: none;
+p {
+  margin: 0;
+  text-align: left;
+  font-size: 17px;
+  font-weight: 100;
 }
 
-/* .topSearch {
+h1 {
+  font-weight: 700;
+  margin: 0 0 1vh 0;
+}
+
+.background {
+  background-color: rgb(239, 239, 239);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.App {
+  width: 75vw;
+  background-color: white;
+  border-radius: 10px;
+  margin: 4.5vh 0;
+  padding: 0.5vh 0.5vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.topSearch {
+  min-width: 73vw;
+  display: flex;
+  flex-direction: column;
   position: fixed;
-  top: 20px;
-} */
+  background-color: white;
+}
+
+#container {
+  margin-top: 10vh;
+}
+
+.inputStyle {
+  border: none;
+  border-bottom: solid 1px rgb(196, 196, 196);
+  font-size: 21px;
+  margin: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.inputStyle:focus,
+input:focus {
+  outline: none;
+}
+
+li {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.student-layout {
+  display: flex;
+  justify-content: space-between;
+  min-width: 65vw;
+  margin: 1vw 1vw 1vw 1vw;
+}
+
+.student {
+  display: flex;
+}
+
+.portrait {
+  margin: 1.5vh 1.5vw 0 0;
+  height: 12vh;
+  border: solid 1px lightgray;
+  border-radius: 100%;
+}
+
+.align-info-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.student-info {
+  text-align: left;
+}
+
+#test-result {
+  margin-top: 1vh;
+}
+
+.add-tag {
+  font-size: 18px;
+  margin: 1rem 0 0 0;
+}
+
+.tagsContainer {
+  display: flex;
+}
+
+.tagStyle {
+  background-color: lightgray;
+  border-radius: 5px;
+  font-size: 18px;
+  margin: 0.5rem 0.2rem 0 0.2rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.add {
+  border: none;
+  background-color: white;
+  font-size: 65px;
+  color: darkgray;
+}
+
+#line {
+  border-bottom: solid 1px lightgray;
+  margin: 2vw 1vw 0 1vw;
+}

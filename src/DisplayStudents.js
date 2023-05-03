@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import useHandleChange from "./useHandleChange";
 
 export default function DisplayStudents({
@@ -17,9 +17,9 @@ export default function DisplayStudents({
 
   function getTestResults(testResults) {
     const allResults = testResults?.map((result, id) => {
-      return <li key={id}>{`Test ${id}: ${result}%`}</li>;
+      return <p key={id}>{`Test ${id}: ${"\u00A0"} ${result}%`}</p>;
     });
-    return <ul>{allResults}</ul>;
+    return allResults;
   }
 
   function getAverageScore(studentGrades) {
@@ -31,8 +31,16 @@ export default function DisplayStudents({
     return averageScore.toFixed(2);
   }
 
-  const renderTags = tags?.map((Tag, i) => {
-    return <h2 key={i + 100}>{Tag}</h2>;
+  const renderTags = tags?.map((tag, i) => {
+    if (tag != []) {
+      return (
+        <div>
+          <p key={i + 100} className="tagStyle">
+            {tag}
+          </p>
+        </div>
+      );
+    }
   });
 
   function submitTag(event) {
@@ -44,40 +52,49 @@ export default function DisplayStudents({
   }
   console.log();
   return (
-    <div key={id} className="student-layout">
-      <div className="student">
-        <div className="student-picture">
-          <img src={pic} className="portrait" alt="student-portrait" />
+    <div>
+      <div key={id} className="student-layout">
+        <div className="align-info-input">
+          <div className="student">
+            <div className="student-picture">
+              <img src={pic} className="portrait" alt="student-portrait" />
+            </div>
+            <div>
+              <div className="student-info">
+                <h1>{`${firstName.toUpperCase()} ${lastName.toUpperCase()}`}</h1>
+                <p>Email: {email}</p>
+                <p>Company: {company}</p>
+                <p>Skill: {skill}</p>
+                <p>{`Average: ${getAverageScore(grades)}%`}</p>
+                {isVisible && (
+                  <div id="test-result">{getTestResults(grades)}</div>
+                )}
+                <div className="tagsContainer">{renderTags}</div>
+                <form>
+                  <input
+                    className="inputStyle add-tag"
+                    value={value.value}
+                    name="value"
+                    type="text"
+                    placeholder="Add a here"
+                    onChange={handleChange}
+                    onKeyDown={submitTag}
+                  />
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="student-info">
-          <h1>{`${firstName.toUpperCase()} ${lastName.toUpperCase()}`}</h1>
-          <p>Email: {email}</p>
-          <p>Company: {company}</p>
-          <p>Skill: {skill}</p>
-          <p>{`Average: ${getAverageScore(grades)}%`}</p>
-          {isVisible && <div>{getTestResults(grades)}</div>}
+        <div>
+          <button
+            className="add"
+            onClick={() => setIsVisible((prevState) => !prevState)}
+          >
+            {isVisible ? "-" : "+"}
+          </button>
         </div>
-        {renderTags}
-        <form>
-          <input
-            className="inputStyle"
-            value={value.value}
-            name="value"
-            type="text"
-            placeholder="Add a here"
-            onChange={handleChange}
-            onKeyDown={submitTag}
-          />
-        </form>
       </div>
-      <div>
-        <button
-          className="add"
-          onClick={() => setIsVisible((prevState) => !prevState)}
-        >
-          +
-        </button>
-      </div>
+      <div id="line"></div>
     </div>
   );
 }
