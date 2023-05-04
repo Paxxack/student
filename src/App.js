@@ -1,4 +1,3 @@
-import "./App.css";
 import React, { useContext } from "react";
 import DisplayStudents from "./DisplayStudents";
 import { Context } from "./Context";
@@ -45,12 +44,11 @@ function App() {
   });
 
   function checkSearchInputs(student) {
+    const { firstName, lastName, tags } = student;
     return (
-      (student.firstName.toUpperCase().includes(value.name.toUpperCase()) ||
-        student.lastName.toUpperCase().includes(value.name.toUpperCase())) &&
-      student.tags.some((tag) =>
-        tag.toUpperCase().includes(value.tag.toUpperCase())
-      )
+      (firstName.toUpperCase().includes(value.name.toUpperCase()) ||
+        lastName.toUpperCase().includes(value.name.toUpperCase())) &&
+      tags.some((tag) => tag.toUpperCase().includes(value.tag.toUpperCase()))
     );
   }
 
