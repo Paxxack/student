@@ -21,9 +21,7 @@ function ContextProvider({ children }) {
   }
 
   return (
-    <Context.Provider value={{ dataStudents, setDataStudents }}>
-      {children}
-    </Context.Provider>
+    <Context.Provider value={{ dataStudents }}>{children}</Context.Provider>
   );
 }
 
