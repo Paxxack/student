@@ -83,6 +83,7 @@ export default function DisplayStudents({ student }) {
             </div>
           </div>
         </div>
+
         <div>
           <button
             className="add"
