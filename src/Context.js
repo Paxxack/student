@@ -5,6 +5,9 @@ const Context = React.createContext();
 function ContextProvider({ children }) {
   const [dataStudents, setDataStudents] = useState([]);
 
+  /* Fetch data on App mount asynchronously and 
+  refactor it by adding an empty array for tags*/
+
   useEffect(() => {
     fetchStudents();
   }, []);

@@ -1,7 +1,10 @@
 import { useState } from "react";
 
 export default function useHandleChange() {
-  const [value, setValue] = useState({ name: "", tag: "" });
+  const [searchValue, setValue] = useState({ name: "", tag: "" });
+
+  /* Function reveive value from inputs and 
+resend it in appropriate format for use*/
 
   function handleChange(event) {
     if (event.keyCode === 13) {
@@ -16,5 +19,5 @@ export default function useHandleChange() {
     }
   }
 
-  return [value, handleChange];
+  return [searchValue, handleChange];
 }
