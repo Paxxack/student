@@ -1,19 +1,13 @@
 import React, { useState } from "react";
-import useHandleChange from "./useHandleChange";
+import useHandleChange from "../customHooks/useHandleChange";
 
-export default function DisplayStudents({
-  company,
-  skill,
-  id,
-  firstName,
-  lastName,
-  email,
-  pic,
-  grades,
-  tags,
-}) {
+export default function DisplayStudents({ student }) {
+  const { company, skill, id, firstName, lastName, email, pic, grades, tags } =
+    student;
   const [isVisible, setIsVisible] = useState(false);
-  const [value, handleChange] = useHandleChange();
+  const [searchValue, handleChange] = useHandleChange();
+
+  /* Function show all student's results on button clicked*/
 
   function getTestResults(testResults) {
     const allResults = testResults?.map((result, id) => {
@@ -21,6 +15,8 @@ export default function DisplayStudents({
     });
     return allResults;
   }
+
+  /* Function calculate scores the for average score*/
 
   function getAverageScore(studentGrades) {
     let totalScore = 0;
@@ -31,17 +27,19 @@ export default function DisplayStudents({
     return averageScore.toFixed(2);
   }
 
+  /* Render tags if the tags array is not empty*/
+
   const renderTags = tags?.map((tag, i) => {
     if (tag != []) {
       return (
-        <div>
-          <p key={i + 100} className="tagStyle">
-            {tag}
-          </p>
+        <div key={i + 100}>
+          <p className="tagStyle">{tag}</p>
         </div>
       );
     }
   });
+
+  /* Function push tags to tag's array and reset tag input value*/
 
   function submitTag(event) {
     if (event.keyCode === 13) {
@@ -50,7 +48,7 @@ export default function DisplayStudents({
       handleChange(event);
     }
   }
-  console.log();
+
   return (
     <div>
       <div key={id} className="student-layout">
@@ -73,7 +71,7 @@ export default function DisplayStudents({
                 <form>
                   <input
                     className="inputStyle add-tag"
-                    value={value.value}
+                    value={searchValue.value}
                     name="value"
                     type="text"
                     placeholder="Add a here"

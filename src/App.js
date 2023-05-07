@@ -1,55 +1,29 @@
-import "./App.css";
 import React, { useContext } from "react";
-import DisplayStudents from "./DisplayStudents";
+import DisplayStudents from "./Components/DisplayStudents";
 import { Context } from "./Context";
-import useHandleChange from "./useHandleChange";
+import useHandleChange from "./customHooks/useHandleChange";
 
 function App() {
   const { dataStudents } = useContext(Context);
-  const [value, handleChange] = useHandleChange();
+  const [searchValue, handleChange] = useHandleChange();
 
-  const displayStudent = dataStudents?.map((student) => {
-    const {
-      company,
-      skill,
-      id,
-      firstName,
-      lastName,
-      email,
-      pic,
-      grades,
-      tags,
-    } = student;
+  /* Check all students data and render them conditional 
+     to the search input from user*/
 
-    const studentProperties = (
-      <DisplayStudents
-        firstName={firstName}
-        lastName={lastName}
-        pic={pic}
-        email={email}
-        skill={skill}
-        company={company}
-        id={id}
-        grades={grades}
-        tags={tags}
-        key={id}
-      />
-    );
-
-    if (value === "") {
-      return studentProperties;
-    } else if (checkSearchInputs(student)) {
-      return studentProperties;
+  const displayStudents = dataStudents?.map((student) => {
+    if (searchValue === "" || checkSearchInputs(student)) {
+      return <DisplayStudents student={student} />;
     }
-    return "";
   });
 
+  /* Function check user search input with data*/
+
   function checkSearchInputs(student) {
+    const fullName = `${student.firstName} ${student.lastName}`;
     return (
-      (student.firstName.toUpperCase().includes(value.name.toUpperCase()) ||
-        student.lastName.toUpperCase().includes(value.name.toUpperCase())) &&
+      fullName.toUpperCase().includes(searchValue.name.toUpperCase()) &&
       student.tags.some((tag) =>
-        tag.toUpperCase().includes(value.tag.toUpperCase())
+        tag.toUpperCase().includes(searchValue.tag.toUpperCase())
       )
     );
   }
@@ -58,22 +32,26 @@ function App() {
     <div className="background">
       <div className="App">
         <div className="topSearch">
-          <input
-            className="inputStyle"
-            type="text"
-            name="name"
-            placeholder="Search by name"
-            onChange={handleChange}
-          />
-          <input
-            className="inputStyle"
-            type="text"
-            name="tag"
-            placeholder="Search by tag"
-            onChange={handleChange}
-          />
+          <div>
+            <input
+              className="inputStyle"
+              type="text"
+              name="name"
+              placeholder="Search by name"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <input
+              className="inputStyle"
+              type="text"
+              name="tag"
+              placeholder="Search by tag"
+              onChange={handleChange}
+            />
+          </div>
         </div>
-        <div id="container">{displayStudent}</div>
+        <div id="container">{displayStudents}</div>
       </div>
     </div>
   );
