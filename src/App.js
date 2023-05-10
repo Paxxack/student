@@ -10,9 +10,9 @@ function App() {
   /* Check all students data and render them conditional 
      to the search input from user*/
 
-  const displayStudents = dataStudents?.map((student) => {
+  const displayStudents = dataStudents?.map((student, i) => {
     if (searchValue === "" || checkSearchInputs(student)) {
-      return <DisplayStudents student={student} />;
+      return <DisplayStudents key={i} student={student} />;
     }
   });
 
@@ -32,26 +32,22 @@ function App() {
     <div className="background">
       <div className="App">
         <div className="topSearch">
-          <div>
-            <input
-              className="inputStyle"
-              type="text"
-              name="name"
-              placeholder="Search by name"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <input
-              className="inputStyle"
-              type="text"
-              name="tag"
-              placeholder="Search by tag"
-              onChange={handleChange}
-            />
-          </div>
+          <input
+            className="inputStyle"
+            type="text"
+            name="name"
+            placeholder="Search by name"
+            onChange={handleChange}
+          />
+          <input
+            className="inputStyle topInput"
+            type="text"
+            name="tag"
+            placeholder="Search by tag"
+            onChange={handleChange}
+          />
         </div>
-        <div id="container">{displayStudents}</div>
+        <div className="container">{displayStudents}</div>
       </div>
     </div>
   );
