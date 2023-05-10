@@ -52,37 +52,33 @@ export default function DisplayStudents({ student }) {
   return (
     <div>
       <div key={id} className="student-layout">
-        <div className="align-info-input">
-          <div className="student">
-            <div className="student-picture">
-              <img src={pic} className="portrait" alt="student-portrait" />
-            </div>
-            <div>
-              <div className="student-info">
-                <h1>{`${firstName.toUpperCase()} ${lastName.toUpperCase()}`}</h1>
-                <p>Email: {email}</p>
-                <p>Company: {company}</p>
-                <p>Skill: {skill}</p>
-                <p>{`Average: ${getAverageScore(grades)}%`}</p>
-                {isVisible && (
-                  <div id="test-result">{getTestResults(grades)}</div>
-                )}
-                <div className="tagsContainer">{renderTags}</div>
-                <form>
-                  <input
-                    className="inputStyle add-tag"
-                    value={searchValue.value}
-                    name="value"
-                    type="text"
-                    placeholder="Add a here"
-                    onChange={handleChange}
-                    onKeyDown={submitTag}
-                  />
-                </form>
-              </div>
-            </div>
+        <div className="student">
+          <div>
+            <img src={pic} className="portrait" alt="student-portrait" />
+          </div>
+
+          <div className="student-info">
+            <h1>{`${firstName.toUpperCase()} ${lastName.toUpperCase()}`}</h1>
+            <p className="student-email">Email: {email}</p>
+            <p>Company: {company}</p>
+            <p>Skill: {skill}</p>
+            <p>{`Average: ${getAverageScore(grades)}%`}</p>
+            {isVisible && <div id="test-result">{getTestResults(grades)}</div>}
+            <div className="tagsContainer">{renderTags}</div>
+            <form key={id + 1000}>
+              <input
+                className="inputStyle addTag"
+                value={searchValue.value}
+                name="value"
+                type="text"
+                placeholder="Add a here"
+                onChange={handleChange}
+                onKeyDown={submitTag}
+              />
+            </form>
           </div>
         </div>
+
         <div>
           <button
             className="add"
