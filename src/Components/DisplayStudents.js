@@ -30,13 +30,14 @@ export default function DisplayStudents({ student }) {
   /* Render tags if the tags array is not empty*/
 
   const renderTags = tags?.map((tag, i) => {
-    if (tag != []) {
+    if (tag.length > 0) {
       return (
         <div key={i + 100}>
           <p className="tagStyle">{tag}</p>
         </div>
       );
     }
+    return "";
   });
 
   /* Function push tags to tag's array and reset tag input value*/
