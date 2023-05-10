@@ -14,6 +14,7 @@ function App() {
     if (searchValue === "" || checkSearchInputs(student)) {
       return <DisplayStudents key={i} student={student} />;
     }
+    return "";
   });
 
   /* Function check user search input with data*/
